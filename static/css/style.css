@@ -622,6 +622,19 @@ li{
     font-size: 20px;
   }
 
+.post-icon {
+  font-size: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-block;
+  margin-right: 5px;
+}
+
+.post-icon:hover {
+  transform: scale(1.1);
+}
+
+
    .log-main,
   .log-main2 {
     padding-top: 150px;          

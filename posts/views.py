@@ -1,11 +1,11 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
 from django.http import JsonResponse
-
+from django.views.decorators.http import require_POST
 from .forms import PostForm, CommentForm
 from .models import Post, PostImage, Reaction
 
-def home(request):
+def home_view(request):
     posts = Post.objects.select_related('author').prefetch_related(
         'images', 'comments__author', 'reactions'
     )[:10]
@@ -40,7 +40,7 @@ def post_detail_view(request, pk):
 
 
 @login_required
-def add_comment(request, pk):
+def add_comment_view(request, pk):
     post = get_object_or_404(Post, pk=pk)
     if request.method == 'POST':
         form = CommentForm(request.POST)
@@ -53,13 +53,14 @@ def add_comment(request, pk):
     return redirect('posts:home')
 
 @login_required
-def react(request, pk):
+@require_POST
+def react_view(request, pk):
     post = get_object_or_404(Post, pk=pk)
-    value = 1 if request.POST.get('value') == 'like' else -1
-    
+    value_str = request.POST.get('value')
+    value = 1 if value_str == 'like' else -1
+
     reaction, created = Reaction.objects.get_or_create(
-        post=post, user=request.user,
-        defaults={'value': value}
+        post=post, user=request.user, defaults={'value': value}
     )
     
     if not created and reaction.value == value:
@@ -67,9 +68,11 @@ def react(request, pk):
     else:
         reaction.value = value
         reaction.save()
-    
+
     return JsonResponse({
         'likes': post.likes_count(),
         'dislikes': post.dislikes_count(),
-        'user_reaction': post.user_reaction(request.user)
+        'user_reaction': post.user_reaction(request.user),
     })
+
+

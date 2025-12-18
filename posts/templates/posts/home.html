@@ -10,14 +10,13 @@
           <a href="#"><img src="{% static 'images/search_icon.svg' %}" alt="" class="search_icon" /></a>
         </div>
       </div>
-
       <a href="{% url 'posts:create' %}"><input type="button" class="create-post" value="+ Создать пост" /></a>
     </div>
 
     <div class="posts-container">
       {% for post in posts %}
         <div class="post" data-post-id="{{ post.id }}">
-          {# шапка поста: аватар + ник с переходом на профиль #}
+          {# шапка поста #}
           <div class="post-header">
             {% if post.author.avatar %}
               <img src="{{ post.author.avatar.url }}" alt="" class="post-avatar" />
@@ -27,7 +26,7 @@
             <a href="{% url 'users:profile' %}?user={{ post.author.id }}" class="post-user">{{ post.author.username }}</a>
           </div>
 
-          {# если есть изображение — показываем только его и делаем кликабельным на страницу поста #}
+          {# контент #}
           {% if post.images.all %}
             {% with img=post.images.all.0 %}
               <a href="{% url 'posts:detail' post.pk %}">
@@ -39,7 +38,6 @@
               </a>
             {% endwith %}
           {% else %}
-            {# если только текст — показываем его (обрезаем при длине > 250) и всегда даём ссылку #}
             <div class="post-main">
               <p class="post-text">
                 {% if post.text|length > 250 %}
@@ -52,14 +50,14 @@
             </div>
           {% endif %}
 
-          {# футер: лайки, дизлайки, иконка комментариев #}
+          {# футер: СЕРДЕЧКИ вместо SVG #}
           <div class="post-footer">
             <div class="like post-icon-container">
-              <img src="{% static 'images/like.svg' %}" alt="" class="post-icon react-btn" data-value="like" />
+              <span class="post-icon react-btn" data-value="like">♡</span>
               <span class="react-count like-count">{{ post.likes_count }}</span>
             </div>
             <div class="dislike post-icon-container">
-              <img src="{% static 'images/dislike.svg' %}" alt="" class="post-icon react-btn" data-value="dislike" />
+              <span class="post-icon react-btn" data-value="dislike">💔</span>
               <span class="react-count dislike-count">{{ post.dislikes_count }}</span>
             </div>
             <div class="post-comment post-icon-container">
@@ -67,7 +65,7 @@
             </div>
           </div>
 
-          {# блок комментариев: по умолчанию скрыт, открывается по клику на иконку #}
+          {# комментарии #}
           <div class="comments-block" style="display:none;">
             {% for comment in post.comments.all %}
               <div class="comment-mini">
@@ -98,4 +96,5 @@
     </div>
   </main>
 
+  <script src="{% static 'posts/js/main.js' %}"></script>
 {% endblock %}
