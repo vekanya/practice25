@@ -33,6 +33,11 @@ a {
     text-decoration: none;
 }
 
+button{
+  border: none;
+  font-family: 'ElMessiri';
+}
+
 header {
     display: flex;
     flex-direction: row;
@@ -296,6 +301,8 @@ h2 {
     background-color: #4A6DE5;
     height: 45px !important;
     font-size: 18px;
+    border: none;
+    font-family: 'ElMessiri';
 }
 
 .create-main {
