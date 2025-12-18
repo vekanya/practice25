@@ -1,43 +1,45 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 {% load static %}
 
 {% block content %}
-<main class="profile-main">
-  <div class="user-info">
-    {% if user_obj.avatar %}
-      <img src="{{ user_obj.avatar.url }}" alt="" class="user-avatar">
-    {% else %}
-      <img src="{% static 'images/default_avatar.jpg' %}" alt="" class="user-avatar">
-    {% endif %}
+  <main class="profile-main">
+    <div class="user-info">
+      {% if user_obj.avatar %}
+        <img src="{{ user_obj.avatar.url }}" alt="" class="user-avatar" />
+      {% else %}
+        <img src="{% static 'images/default_avatar.jpg' %}" alt="" class="user-avatar" />
+      {% endif %}
 
-    <h1>{{ user_obj.username }}</h1>
-    <div class="stat">
-      <span class="posts-count">Посты</span>
-      <span class="count">0</span>
+      <span class="status">
+        {% if user_obj.is_online %}
+          <p class="online">Онлайн</p>
+        {% else %}
+          <p class="offline">Оффлайн</p>
+        {% endif %}
+      </span>
+
+      <h1>{{ user_obj.username }}</h1>
+      <div class="stat">
+        <span class="posts-count">Посты</span>
+        <span class="count">0</span>
+      </div>
+
+      <form method="post" enctype="multipart/form-data" class="reg-form">
+        {% csrf_token %}
+        {{ avatar_form.avatar.errors }}
+
+        <label for="id_avatar" class="change-button" >Изменить аватар</label>
+        <input type="file" name="avatar" id="id_avatar" class="form-input add-ava"/>
+
+        <button type="submit" class="log-button" >Сохранить</button>
+      </form>
     </div>
 
-    <form method="post" enctype="multipart/form-data" class="reg-form">
-      {% csrf_token %}
-      {{ avatar_form.avatar.errors }}
-
-      <label for="id_avatar" class="log-button" style="text-align:center; cursor:pointer;">
-        Изменить аватар
-      </label>
-      <input type="file" name="avatar" id="id_avatar" class="form-input" style="display:none;">
-
-      <button type="submit" class="log-button" style="margin-top:10px;">
-        Сохранить
-      </button>
-    </form>
-  </div>
-
-  <div class="comm-history">
-    <h2 class="history">История</h2>
-    <div class="comm-container">
-      <div class="comment">
-        -
+    <div class="comm-history">
+      <h2 class="history">История</h2>
+      <div class="comm-container">
+        <div class="comment">-</div>
       </div>
     </div>
-  </div>
-</main>
+  </main>
 {% endblock %}

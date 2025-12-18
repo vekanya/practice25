@@ -23,6 +23,8 @@ def login_view(request):
         form = LoginForm(request, data=request.POST)
         if form.is_valid():
             user = form.get_user()
+            user.is_online = True
+            user.save(update_fields=['is_online'])
             login(request, user)
             return redirect('users:profile')
     else:
@@ -30,7 +32,11 @@ def login_view(request):
     return render(request, 'users/auth.html', {'form': form})
 
 
+@login_required
 def logout_view(request):
+    user = request.user
+    user.is_online = False
+    user.save(update_fields=['is_online'])
     logout(request)
     return redirect('users:login')
 

@@ -46,7 +46,7 @@ header {
     top: 0;
     left: 0;
     right: 0;
-    padding: 0 100px;
+    padding: 10px 100px;
     background: #fff;
     z-index: 1000;
     font-family: 'ElMessiri';
@@ -94,7 +94,7 @@ footer img{
 }
 
 .logo {
-    width: 240px;
+    width: 180px;
 }
 
 .body-top {
@@ -270,6 +270,18 @@ h2 {
     font-family: 'Firenight';
 }
 
+.errors{
+  display: flex;
+  flex-direction: column;
+  font-family: 'ElMessiri';
+  font-size: 16px;
+  color: #fff;
+}
+
+.errorlist{
+  margin: 0;
+}
+
 .reg-form {
     display: flex;
     flex-direction: column;
@@ -278,7 +290,7 @@ h2 {
     align-items: center;
 }
 
-.reg-form input {
+.form-input {
     height: 35px;
     width: 100%;
     border-radius: 10px;
@@ -374,13 +386,45 @@ textarea {
 .user-info {
     display: flex;
     flex-direction: column;
-    row-gap: 30px;
+    row-gap: 20px;
     align-items: center;
 }
 
 h1 {
     color: #FF6B8B;
     font-size: 48px;
+    margin: 0;
+}
+
+.status{
+  font-family: 'ElMessiri';
+  font-size: 24px;
+}
+
+.online{
+  color: #4ae56c;
+    margin: 0;
+}
+
+.offline{
+  color: #B5B5B5;
+    margin: 0;
+
+}
+
+.change-button{
+  display: flex;
+  padding: 10px;
+  font-family: 'ElMessiri';
+  font-size: 20px;
+  background-color: #FF6B8B;
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+}
+
+.add-ava{
+  display: none;
 }
 
 .stat {
