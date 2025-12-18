@@ -1,21 +1,21 @@
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, render, redirect
-from .forms import RegisterForm, LoginForm
+from .forms import RegisterForm, LoginForm, AvatarUpdateForm
 from .models import User
-from .forms import AvatarUpdateForm
 
 
 def register_view(request):
     if request.method == 'POST':
-        form = RegisterForm(request.POST, request.FILES)
+        form = RegisterForm(request.POST)  
         if form.is_valid():
             user = form.save()
             login(request, user)
-            return redirect('users:profile')
+            return redirect('posts:home')
     else:
         form = RegisterForm()
     return render(request, 'users/reg.html', {'form': form})
+
 
 
 def login_view(request):

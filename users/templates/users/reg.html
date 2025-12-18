@@ -7,18 +7,20 @@
     <h2>Регистрация</h2>
     <form method="post" enctype="multipart/form-data" class="reg-form">
       {% csrf_token %}
+      
       <div class="errors">
-        
         {{ form.non_field_errors }}
         {{ form.username.errors }}
         {{ form.email.errors }}
         {{ form.phone.errors }}
         {{ form.password.errors }}
       </div>
+
       <input type="text" name="username" placeholder="Логин" class="form-input" >
       <input type="email" name="email" placeholder="E-mail" class="form-input" >
       <input type="text" name="phone" placeholder="Телефон" class="form-input" >
-      <input type="password" name="password" placeholder="Пароль" class="form-input">
+<input type="password" name="password" placeholder="Пароль" class="form-input">
+
       <div class="form-check">
         <input type="checkbox" id="docs-checkbox">
         <label for="docs-checkbox">Пользовательское соглашение, Политика конфиденциальности</label>

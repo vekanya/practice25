@@ -1,16 +1,20 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm
 from .models import User
-from django import forms
 
-class RegisterForm(UserCreationForm):
-    email = forms.EmailField(required=True)
-    phone = forms.CharField(required=False)
+class RegisterForm(forms.ModelForm):
+    password = forms.CharField(label='', widget=forms.PasswordInput)
 
     class Meta:
         model = User
         fields = ('username', 'email', 'phone', 'password')
 
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        user.set_password(self.cleaned_data["password"])  # ← ОДИН пароль!
+        if commit:
+            user.save()
+        return user  # ← возвращаем!
 
 class LoginForm(AuthenticationForm):
     username = forms.CharField()
