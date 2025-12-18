@@ -1,102 +1,101 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 {% load static %}
 
-    {% block content %}
-     <main>
-        <div class="body-top">
-            <div class="search">
-                <input type="text" class="search-input">
-                <div class="search_icon">
-                    <a href="#">
-                        <img src="{% static "images/search_icon.svg" %}" alt="" class="search_icon">
-                    </a>
-
-                </div>
-            </div>
-
-            <a href="{% url "posts:create" %}"><input type="button" class="create-post" value="+ Создать пост"></a>
-
+{% block content %}
+  <main>
+    <div class="body-top">
+      <div class="search">
+        <input type="text" class="search-input" />
+        <div class="search_icon">
+          <a href="#"><img src="{% static 'images/search_icon.svg' %}" alt="" class="search_icon" /></a>
         </div>
+      </div>
 
-        <div class="posts-container">
-            <div class="post">
-                <div class="post-header">
-                    <img src="{% static 'images/ava.jpg'%}" alt="" class="post-avatar">
-                    <a href="#" class="post-user">name</a>
-                </div>
-                                        <a href="{% url "posts:post" %}">                <div class="post-main">
-                    <div class="post-img-container">
-                        <img src="{% static 'images/ava.jpg'%}" alt="" class="post-img">
-                    </div>
-                </div></a>
+      <a href="{% url 'posts:create' %}"><input type="button" class="create-post" value="+ Создать пост" /></a>
+    </div>
 
+    <div class="posts-container">
+      {% for post in posts %}
+        <div class="post" data-post-id="{{ post.id }}">
+          {# шапка поста: аватар + ник с переходом на профиль #}
+          <div class="post-header">
+            {% if post.author.avatar %}
+              <img src="{{ post.author.avatar.url }}" alt="" class="post-avatar" />
+            {% else %}
+              <img src="{% static 'images/default_avatar.jpg' %}" alt="" class="post-avatar" />
+            {% endif %}
+            <a href="{% url 'users:profile' %}?user={{ post.author.id }}" class="post-user">{{ post.author.username }}</a>
+          </div>
 
-
-                <div class="post-footer">
-                    <div class="like post-icon-container"><img src="{% static 'images/like.svg'%}" alt="" class="post-icon"><span
-                            class="react-count">0</span></div>
-                    <div class="dislike post-icon-container"><img src="{% static 'images/dislike.svg'%}" alt="" class="post-icon"><span
-                            class="react-count">0</span></div>
-                    <div class="post-comment post-icon-container"><img src="{% static 'images/comment.svg'%}" alt="" class="post-icon"></div>
-                </div>
-            </div>
-
-            <div class="post">
-                <div class="post-header">
-                    <img src="{% static 'images/ava.jpg'%}" alt="" class="post-avatar">
-                    <a href="#" class="post-user">name</a>
-                </div>
-
+          {# если есть изображение — показываем только его и делаем кликабельным на страницу поста #}
+          {% if post.images.all %}
+            {% with img=post.images.all.0 %}
+              <a href="{% url 'posts:detail' post.pk %}">
                 <div class="post-main">
-                    <div class="post-img-container"> <img src="{% static 'images/ava.jpg'%}" alt="" class="post-img"></div>
+                  <div class="post-img-container">
+                    <img src="{{ img.image.url }}" alt="" class="post-img" />
+                  </div>
                 </div>
-
-                <div class="post-footer">
-                    <div class="like post-icon-container"><img src="{% static 'images/like.svg'%}" alt="" class="post-icon"><span
-                            class="react-count">0</span></div>
-                    <div class="dislike post-icon-container"><img src="{% static 'images/dislike.svg'%}" alt="" class="post-icon"><span
-                            class="react-count">0</span></div>
-                    <div class="post-comment post-icon-container"><img src="{% static 'images/comment.svg'%}" alt="" class="post-icon"></div>
-                </div>
+              </a>
+            {% endwith %}
+          {% else %}
+            {# если только текст — показываем его (обрезаем при длине > 250) и всегда даём ссылку #}
+            <div class="post-main">
+              <p class="post-text">
+                {% if post.text|length > 250 %}
+                  {{ post.preview|linebreaksbr }}
+                {% else %}
+                  {{ post.text|linebreaksbr }}
+                {% endif %}
+              </p>
+              <a href="{% url 'posts:detail' post.pk %}" class="link-accent">Посмотреть рецепт полностью</a>
             </div>
+          {% endif %}
 
-            <div class="post">
+          {# футер: лайки, дизлайки, иконка комментариев #}
+          <div class="post-footer">
+            <div class="like post-icon-container">
+              <img src="{% static 'images/like.svg' %}" alt="" class="post-icon react-btn" data-value="like" />
+              <span class="react-count like-count">{{ post.likes_count }}</span>
+            </div>
+            <div class="dislike post-icon-container">
+              <img src="{% static 'images/dislike.svg' %}" alt="" class="post-icon react-btn" data-value="dislike" />
+              <span class="react-count dislike-count">{{ post.dislikes_count }}</span>
+            </div>
+            <div class="post-comment post-icon-container">
+              <img src="{% static 'images/comment.svg' %}" alt="" class="post-icon comment-toggle" />
+            </div>
+          </div>
+
+          {# блок комментариев: по умолчанию скрыт, открывается по клику на иконку #}
+          <div class="comments-block" style="display:none;">
+            {% for comment in post.comments.all %}
+              <div class="comment-mini">
                 <div class="post-header">
-                    <img src="{% static 'images/ava.jpg'%}" alt="" class="post-avatar">
-                    <a href="#" class="post-user">name</a>
+                  {% if comment.author.avatar %}
+                    <img src="{{ comment.author.avatar.url }}" alt="" class="comment-avatar" />
+                  {% else %}
+                    <img src="{% static 'images/default_avatar.jpg' %}" alt="" class="comment-avatar" />
+                  {% endif %}
+                  <a href="{% url 'users:profile' %}?user={{ comment.author.id }}" class="comment-user">{{ comment.author.username }}</a>
                 </div>
+                <p class="comment-text">{{ comment.text|linebreaksbr }}</p>
+              </div>
+            {% empty %}
+              <p class="history">Пока нет комментариев.</p>
+            {% endfor %}
 
-                <div class="post-main">
-                    <div class="post-img-container"> <img src="{% static 'images/ava.jpg'%}" alt="" class="post-img"></div>
-                </div>
-
-                <div class="post-footer">
-                    <div class="like post-icon-container"><img src="{% static 'images/like.svg'%}" alt="" class="post-icon"><span
-                            class="react-count">0</span></div>
-                    <div class="dislike post-icon-container"><img src="{% static 'images/dislike.svg'%}" alt="" class="post-icon"><span
-                            class="react-count">0</span></div>
-                    <div class="post-comment post-icon-container"><img src="{% static 'images/comment.svg'%}" alt="" class="post-icon"></div>
-                </div>
-            </div>
-
-            <div class="post">
-                <div class="post-header">
-                    <img src="{% static 'images/ava.jpg'%}" alt="" class="post-avatar">
-                    <a href="#" class="post-user">name</a>
-                </div>
-
-                <div class="post-main">
-                    <div class="post-img-container"> <img src="{% static 'images/ava.jpg'%}" alt="" class="post-img"></div>
-                </div>
-
-                <div class="post-footer">
-                    <div class="like post-icon-container"><img src="{% static 'images/like.svg'%}" alt="" class="post-icon"><span
-                            class="react-count">0</span></div>
-                    <div class="dislike post-icon-container"><img src="{% static 'images/dislike.svg'%}" alt="" class="post-icon"><span
-                            class="react-count">0</span></div>
-                    <div class="post-comment post-icon-container"><img src="{% static 'images/comment.svg'%}" alt="" class="post-icon"></div>
-                </div>
-            </div>
+            {% if user.is_authenticated %}
+              <form class="comment-form" method="POST" action="{% url 'posts:comment' post.id %}">
+                {% csrf_token %}
+                <input type="text" name="text" class="form-input" placeholder="Напишите комментарий" />
+                <button type="submit" class="log-button">Добавить комментарий</button>
+              </form>
+            {% endif %}
+          </div>
         </div>
-    </main>
-    {% endblock %}
+      {% endfor %}
+    </div>
+  </main>
+
+{% endblock %}
