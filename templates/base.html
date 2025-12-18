@@ -10,9 +10,9 @@
   </head>
   <body>
     <header>
-      <a href="#" class="header-link"></a>
+      <a href="{% url "posts:home" %}" class="header-link">Главная</a>
       <img src="{% static 'images/logo.svg' %}" alt="" />
-      <a href="#" class="header-link"></a>
+      <a href="{% url "users:login" %}" class="header-link">Войти</a>
     </header>
 
     {% block content %}

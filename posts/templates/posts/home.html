@@ -2,5 +2,101 @@
 {% load static %}
 
     {% block content %}
-    
+     <main>
+        <div class="body-top">
+            <div class="search">
+                <input type="text" class="search-input">
+                <div class="search_icon">
+                    <a href="#">
+                        <img src="{% static "images/search_icon.svg" %}" alt="" class="search_icon">
+                    </a>
+
+                </div>
+            </div>
+
+            <a href="{% url "posts:create" %}"><input type="button" class="create-post" value="+ Создать пост"></a>
+
+        </div>
+
+        <div class="posts-container">
+            <div class="post">
+                <div class="post-header">
+                    <img src="{% static 'images/ava.jpg'%}" alt="" class="post-avatar">
+                    <a href="#" class="post-user">name</a>
+                </div>
+                                        <a href="{% url "posts:post" %}">                <div class="post-main">
+                    <div class="post-img-container">
+                        <img src="{% static 'images/ava.jpg'%}" alt="" class="post-img">
+                    </div>
+                </div></a>
+
+
+
+                <div class="post-footer">
+                    <div class="like post-icon-container"><img src="{% static 'images/like.svg'%}" alt="" class="post-icon"><span
+                            class="react-count">0</span></div>
+                    <div class="dislike post-icon-container"><img src="{% static 'images/dislike.svg'%}" alt="" class="post-icon"><span
+                            class="react-count">0</span></div>
+                    <div class="post-comment post-icon-container"><img src="{% static 'images/comment.svg'%}" alt="" class="post-icon"></div>
+                </div>
+            </div>
+
+            <div class="post">
+                <div class="post-header">
+                    <img src="{% static 'images/ava.jpg'%}" alt="" class="post-avatar">
+                    <a href="#" class="post-user">name</a>
+                </div>
+
+                <div class="post-main">
+                    <div class="post-img-container"> <img src="{% static 'images/ava.jpg'%}" alt="" class="post-img"></div>
+                </div>
+
+                <div class="post-footer">
+                    <div class="like post-icon-container"><img src="{% static 'images/like.svg'%}" alt="" class="post-icon"><span
+                            class="react-count">0</span></div>
+                    <div class="dislike post-icon-container"><img src="{% static 'images/dislike.svg'%}" alt="" class="post-icon"><span
+                            class="react-count">0</span></div>
+                    <div class="post-comment post-icon-container"><img src="{% static 'images/comment.svg'%}" alt="" class="post-icon"></div>
+                </div>
+            </div>
+
+            <div class="post">
+                <div class="post-header">
+                    <img src="{% static 'images/ava.jpg'%}" alt="" class="post-avatar">
+                    <a href="#" class="post-user">name</a>
+                </div>
+
+                <div class="post-main">
+                    <div class="post-img-container"> <img src="{% static 'images/ava.jpg'%}" alt="" class="post-img"></div>
+                </div>
+
+                <div class="post-footer">
+                    <div class="like post-icon-container"><img src="{% static 'images/like.svg'%}" alt="" class="post-icon"><span
+                            class="react-count">0</span></div>
+                    <div class="dislike post-icon-container"><img src="{% static 'images/dislike.svg'%}" alt="" class="post-icon"><span
+                            class="react-count">0</span></div>
+                    <div class="post-comment post-icon-container"><img src="{% static 'images/comment.svg'%}" alt="" class="post-icon"></div>
+                </div>
+            </div>
+
+            <div class="post">
+                <div class="post-header">
+                    <img src="{% static 'images/ava.jpg'%}" alt="" class="post-avatar">
+                    <a href="#" class="post-user">name</a>
+                </div>
+
+                <div class="post-main">
+                    <div class="post-img-container"> <img src="{% static 'images/ava.jpg'%}" alt="" class="post-img"></div>
+                </div>
+
+                <div class="post-footer">
+                    <div class="like post-icon-container"><img src="{% static 'images/like.svg'%}" alt="" class="post-icon"><span
+                            class="react-count">0</span></div>
+                    <div class="dislike post-icon-container"><img src="{% static 'images/dislike.svg'%}" alt="" class="post-icon"><span
+                            class="react-count">0</span></div>
+                    <div class="post-comment post-icon-container"><img src="{% static 'images/comment.svg'%}" alt="" class="post-icon"></div>
+                </div>
+            </div>
+        </div>
+    </main>
     {% endblock %}

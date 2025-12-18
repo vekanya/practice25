@@ -1,6 +1,14 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 {% load static %}
 
-    {% block content %}
-    
-    {% endblock %}
+{% block content %}
+  <main class="post-main">
+    <img src="{% static 'images/ava.jpg' %}" alt="" class="receipt-img" />
+
+    <div class="receipt">
+      <h2 class="receipt-name">Булки</h2>
+
+      <p class="receipt-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ab, error earum, est nesciunt porro nulla eaque, rem fugiat laudantium quo molestias nostrum. Tempore, aliquid eveniet dolores laborum impedit accusamus placeat. Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam nulla praesentium ducimus nemo illum est veritatis accusamus aperiam incidunt id mollitia minima dolor, perferendis unde laborum deserunt. Repellendus, aperiam nulla. Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit necessitatibus nesciunt hic, reiciendis soluta nostrum iste expedita nihil? Cumque harum excepturi dolorem nam aperiam, ipsa facilis aut dignissimos expedita nesciunt! Lorem ipsum dolor, sit amet consectetur adipisicing elit. Cupiditate aspernatur maiores et temporibus deserunt laboriosam, cumque ipsa iste magni itaque cum, assumenda inventore alias. Odio dicta laboriosam laborum tempore aliquam! Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus, temporibus tenetur illum iusto optio dolorem unde aliquid doloribus quisquam in corrupti neque officiis officia tempora quos commodi consequuntur consequatur quo!</p>
+    </div>
+  </main>
+{% endblock %}
