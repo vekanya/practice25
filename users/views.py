@@ -1,6 +1,6 @@
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404, render, redirect
 from .forms import RegisterForm, LoginForm
 from .models import User
 from .forms import AvatarUpdateForm
@@ -43,7 +43,15 @@ def logout_view(request):
 
 @login_required
 def profile_view(request):
-    if request.method == 'POST':
+    # Получаем профиль пользователя из GET параметра или текущего пользователя
+    user_id = request.GET.get('user')
+    if user_id:
+        user_obj = get_object_or_404(User, id=user_id)
+    else:
+        user_obj = request.user
+
+    # Обработка смены аватара (только для своего профиля)
+    if request.method == 'POST' and request.user == user_obj:
         form = AvatarUpdateForm(request.POST, request.FILES, instance=request.user)
         if form.is_valid():
             form.save()
@@ -51,7 +59,10 @@ def profile_view(request):
     else:
         form = AvatarUpdateForm(instance=request.user)
 
+    # Обновляем время последнего визита для текущего пользователя
+    request.user.update_last_seen()
+
     return render(request, 'users/profile.html', {
-        'user_obj': request.user,
+        'user_obj': user_obj,
         'avatar_form': form,
     })
