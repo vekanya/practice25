@@ -2,19 +2,38 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="{% url "static/css/style.css" %}">
-</head>
-<body>
+    <link rel="stylesheet" href="{% url 'static/css/style.css' %}" />
+  </head>
+  <body>
     <header>
-        <a href="#" class="header-link"></a>
-        <img src="{% static 'images/logo.svg' %}" alt="">
-        <a href="#" class="header-link"></a>
+      <a href="#" class="header-link"></a>
+      <img src="{% static 'images/logo.svg' %}" alt="" />
+      <a href="#" class="header-link"></a>
     </header>
 
-    {% block content %}{% endblock %}
-</body>
+    {% block content %}
+    {% endblock %}
+
+    <footer>
+      <a href="home.html">
+        <div class="footer-icon">
+          <img src="{% static 'images/home.svg' %}" alt="" />Главная
+        </div>
+      </a>
+      <a href="create_post.html">
+        <div class="footer-icon">
+          <img src="{% static 'images/create.svg' %}" alt="" />Создать
+        </div>
+      </a>
+      <a href="reg.html">
+        <div class="footer-icon">
+          <img src="{% static 'images/profile.svg' %}" alt="" />Войти
+        </div>
+      </a>
+    </footer>
+  </body>
 </html>
