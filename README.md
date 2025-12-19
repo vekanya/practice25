@@ -20,7 +20,7 @@
 
 ### 1. Клонирование проекта
 
-git clone <url-репозитория>
+git clone https://github.com/vekanya/practice25
 cd app
 
 
