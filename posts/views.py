@@ -21,7 +21,6 @@ def create_post_view(request):
         
         post = Post.objects.create(author=request.user, text=text)
         
-        # Сохраняем изображения
         for image_file in request.FILES.getlist('images'):
             PostImage.objects.create(post=post, image=image_file)
         
@@ -36,7 +35,7 @@ def post_detail_view(request, pk):
         Post.objects.select_related('author').prefetch_related('images', 'comments__author'),
         pk=pk
     )
-    return render(request, 'posts/post.html', {'post': post})  # ← post.html вместо detail.html
+    return render(request, 'posts/post.html', {'post': post}) 
 
 
 @login_required

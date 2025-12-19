@@ -193,6 +193,10 @@ footer img{
     object-fit: cover;
 }
 
+.comments-block{
+display:none;
+}
+
 .comment-avatar {
     width: 35px;
     height: 35px;
@@ -380,6 +384,10 @@ textarea {
     width: 25%;
 }
 
+#id_images{
+  display: none;
+}
+
 .publish {
     font-family: 'ElMessiri';
     background-color: #4A6DE5;
@@ -467,6 +475,21 @@ h1 {
     color: #FF6B8B;
     font-size: 32px;
 }
+
+.download-btn {
+  display: inline-block;
+  background: #FF6B8B;
+  color: white;
+  padding: 10px 20px;
+  text-decoration: none;
+  margin: 10px 0;
+  font-size: 20px;
+  font-family: 'ElMessiri';
+  border-radius: 20px;
+}
+
+
+
 
 .comm-history {
     display: flex;

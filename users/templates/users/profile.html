@@ -2,61 +2,63 @@
 {% load static %}
 
 {% block content %}
-<main class="profile-main">
-  <div class="user-info">
-    {% if user_obj.avatar %}
-      <img src="{{ user_obj.avatar.url }}" alt="" class="user-avatar" />
-    {% else %}
-      <img src="{% static 'images/default_avatar.jpg' %}" alt="" class="user-avatar" />
-    {% endif %}
-
-    <span class="status">
-      {% if user_obj.is_online %}
-        <p class="online">Онлайн</p>
+  <main class="profile-main">
+    <div class="user-info">
+      {% if user_obj.avatar %}
+        <img src="{{ user_obj.avatar.url }}" alt="" class="user-avatar" />
       {% else %}
-        <p class="offline">
-          Оффлайн<br>
-          <small>Был(а) в сети {{ user_obj.last_seen|date:"d.m.Y H:i" }}</small>  <!-- ← ВРЕМЯ! -->
-        </p>
+        <img src="{% static 'images/default_avatar.jpg' %}" alt="" class="user-avatar" />
       {% endif %}
-    </span>
 
-    <h1>{{ user_obj.username }}</h1>
-    
-    <!-- ← СТАТИСТИКА ПОСТОВ -->
-    <div class="stat">
-      <span class="posts-count">Посты: {{ user_obj.posts.count }}</span>
+      <span class="status">
+        {% if user_obj.is_online %}
+          <p class="online">Онлайн</p>
+        {% else %}
+          <p class="offline">
+            Оффлайн<br />
+            <small>Был(а) в сети {{ user_obj.last_seen|date:'d.m.Y H:i' }}</small>
+          </p>
+        {% endif %}
+      </span>
+
+      <h1>{{ user_obj.username }}</h1>
+
+      <div class="stat">
+        <span class="posts-count">Посты: {{ user_obj.posts.count }}</span>
+      </div>
+
+      {% if user_obj == user %}
+
+        <form method="post" enctype="multipart/form-data" class="reg-form">
+          {% csrf_token %}
+          {{ avatar_form.avatar.errors }}
+          <label for="id_avatar" class="change-button">Изменить аватар</label>
+          <input type="file" name="avatar" id="id_avatar" class="form-input add-ava" />
+          <button type="submit" class="log-button">Сохранить</button>
+        </form>
+        {% if user_obj == user %}
+
+          <a href="{% url 'users:download_data' %}" class="download-btn">Скачать мои данные</a>
+        {% endif %}
+        <a href="{% url 'users:logout' %}">Выйти</a>
+      {% endif %}
     </div>
 
-    {% if user_obj == user %}
-      <!-- Форма смены аватара только для своего профиля -->
-      <form method="post" enctype="multipart/form-data" class="reg-form">
-        {% csrf_token %}
-        {{ avatar_form.avatar.errors }}
-        <label for="id_avatar" class="change-button">Изменить аватар</label>
-        <input type="file" name="avatar" id="id_avatar" class="form-input add-ava"/>
-        <button type="submit" class="log-button">Сохранить</button>
-      </form>
-      <a href="{% url 'users:logout' %}">Выйти</a>
-    {% endif %}
-  </div>
-
-
-  <div class="comm-history">
-    <h2 class="history">Комментарии</h2>
-    <div class="comm-container">
-      {% for comment in user_obj.comment_set.all %}
-        <div class="comment">
-          <div class="comment-header">
-            <a href="{% url 'posts:detail' comment.post.id %}">{{ comment.post|truncatewords:3 }}</a>
-            <small>{{ comment.created_at|date:"d.m.Y H:i" }}</small>
+    <div class="comm-history">
+      <h2 class="history">Комментарии</h2>
+      <div class="comm-container">
+        {% for comment in user_obj.comment_set.all %}
+          <div class="comment">
+            <div class="comment-header">
+              <a href="{% url 'posts:detail' comment.post.id %}">{{ comment.post|truncatewords:3 }}</a>
+              <small>{{ comment.created_at|date:'d.m.Y H:i' }}</small>
+            </div>
+            <p>{{ comment.text|truncatewords:20 }}</p>
           </div>
-          <p>{{ comment.text|truncatewords:20 }}</p>
-        </div>
-      {% empty %}
-        <div class="comment">-</div>
-      {% endfor %}
+        {% empty %}
+          <div class="comment">-</div>
+        {% endfor %}
+      </div>
     </div>
-  </div>
-</main>
+  </main>
 {% endblock %}

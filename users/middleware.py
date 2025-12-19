@@ -1,4 +1,3 @@
-# users/middleware.py
 from django.utils import timezone
 import users.models
 

@@ -16,7 +16,7 @@
     <div class="posts-container">
       {% for post in posts %}
         <div class="post" data-post-id="{{ post.id }}">
-          {# шапка поста #}
+
           <div class="post-header">
             {% if post.author.avatar %}
               <img src="{{ post.author.avatar.url }}" alt="" class="post-avatar" />
@@ -26,7 +26,6 @@
             <a href="{% url 'users:profile' %}?user={{ post.author.id }}" class="post-user">{{ post.author.username }}</a>
           </div>
 
-          {# контент #}
           {% if post.images.all %}
             {% with img=post.images.all.0 %}
               <a href="{% url 'posts:detail' post.pk %}">
@@ -50,7 +49,7 @@
             </div>
           {% endif %}
 
-          {# футер: СЕРДЕЧКИ вместо SVG #}
+
           <div class="post-footer">
             <div class="like post-icon-container">
               <span class="post-icon react-btn" data-value="like">♡</span>
@@ -65,8 +64,8 @@
             </div>
           </div>
 
-          {# комментарии #}
-          <div class="comments-block" style="display:none;">
+
+          <div class="comments-block" >
             {% for comment in post.comments.all %}
               <div class="comment-mini">
                 <div class="post-header">

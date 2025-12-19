@@ -34,13 +34,12 @@ class User(AbstractUser):
         default='avatars/default.png',
     )
     is_online = models.BooleanField(default=False)
-    last_seen = models.DateTimeField(null=True, blank=True)  # ← НОВОЕ ПОЛЕ!
+    last_seen = models.DateTimeField(null=True, blank=True)  
 
     def __str__(self):
         return self.username
 
     def update_last_seen(self):
-        """Обновляет время последнего визита"""
         self.last_seen = timezone.now()
         self.is_online = True
         self.save(update_fields=['last_seen', 'is_online'])

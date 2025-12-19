@@ -11,4 +11,5 @@ urlpatterns = [
     path("profile/", views.profile_view, name="profile"),
     path("token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
     path("token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
+    path('download-data/', views.download_user_data, name='download_data'),
 ]
