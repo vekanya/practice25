@@ -4,19 +4,21 @@
 {% block content %}
   <main>
     <div class="body-top">
-      <div class="search">
-        <input type="text" class="search-input" />
-        <div class="search_icon">
-          <a href="#"><img src="{% static 'images/search_icon.svg' %}" alt="" class="search_icon" /></a>
-        </div>
-      </div>
+<div class="search">
+  <input type="text" class="search-input" 
+         placeholder="Поиск по рецептам и пользователям..." 
+         value="{% if query %}{{ query }}{% endif %}" />
+  <div class="search_icon">
+    <img src="{% static 'images/search_icon.svg' %}" alt="Поиск" class="search_icon" />
+  </div>
+</div>
+
       <a href="{% url 'posts:create' %}"><input type="button" class="create-post" value="+ Создать пост" /></a>
     </div>
 
     <div class="posts-container">
       {% for post in posts %}
         <div class="post" data-post-id="{{ post.id }}">
-
           <div class="post-header">
             {% if post.author.avatar %}
               <img src="{{ post.author.avatar.url }}" alt="" class="post-avatar" />
@@ -49,7 +51,6 @@
             </div>
           {% endif %}
 
-
           <div class="post-footer">
             <div class="like post-icon-container">
               <span class="post-icon react-btn" data-value="like">♡</span>
@@ -64,8 +65,7 @@
             </div>
           </div>
 
-
-          <div class="comments-block" >
+          <div class="comments-block">
             {% for comment in post.comments.all %}
               <div class="comment-mini">
                 <div class="post-header">

@@ -4,12 +4,32 @@ from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 from .forms import PostForm, CommentForm
 from .models import Post, PostImage, Reaction
+from django.db import models
+from django.db.models import Q 
 
 def home_view(request):
-    posts = Post.objects.select_related('author').prefetch_related(
-        'images', 'comments__author', 'reactions'
-    )[:10]
-    return render(request, 'posts/home.html', {'posts': posts})
+    query = request.GET.get('q', '').strip()
+    
+    if query:
+        posts = Post.objects.filter(
+            Q(text__icontains=query) | 
+            Q(author__username__icontains=query)
+        ).select_related('author').prefetch_related(
+            'images', 
+            'comments__author', 
+            'reactions'
+        )[:20]
+    else:
+        posts = Post.objects.select_related('author').prefetch_related(
+            'images', 
+            'comments__author', 
+            'reactions'
+        )[:20]
+    
+    return render(request, 'posts/home.html', {
+        'posts': posts,
+        'query': query
+    })
 
 @login_required
 def create_post_view(request):
