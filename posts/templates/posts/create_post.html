@@ -5,14 +5,15 @@
 <main class="create-main">
   <form method="post" enctype="multipart/form-data" class="post-create">
     {% csrf_token %}
-    {{ form.non_field_errors }}
-    {{ form.text.errors }}
 
-    <textarea name="text" id="id_text" placeholder="Поделитесь своим рецептом">{{ form.text.value }}</textarea>
+    <textarea name="text" id="id_text" placeholder="Поделитесь своим рецептом" 
+              rows="10">{{ form.text.value|default:'' }}</textarea>
 
-    <input type="file" name="images" multiple id="id_images">
+    <!-- Изображения -->
+    <input type="file" name="images" multiple id="id_images" accept="image/*">
     <input type="button" value="+ Добавить изображение" class="add-img" id="add-img-btn">
 
+    <!-- Кнопка -->
     <input type="submit" value="Опубликовать пост" class="publish">
   </form>
 </main>

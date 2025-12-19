@@ -513,6 +513,10 @@ h1 {
     justify-content: space-between;
 }
 
+.post-link{
+  color: #4A6DE5;
+}
+
 .comment {
     padding: 10px;
     color: #B5B5B5;
@@ -589,45 +593,54 @@ li{
     font-size: 28px;
 }
 
-@media (max-width: 480px) {
+/* === 375–960 px: мобильные и небольшие планшеты === */
+@media (min-width: 375px) and (max-width: 960px) {
   body {
-    padding: 0 160px;
+    padding: 0 16px;
   }
 
   header {
-    padding: 0 120px;
-    align-items: center;
-    align-content: center;
-  }
-
-  .logo{
-    width: 180px;
+    padding: 10px 16px;
   }
 
   .header-link {
-    display: none;
+    display: none; /* прячем большие ссылки в шапке */
+  }
+
+  .logo {
+    width: 140px;
   }
 
   main {
     padding-top: 80px;
-    padding-bottom: 60px;
   }
 
-  footer {
-    display: flex;
-    position: fixed;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    padding: 8px 16px;
-    background: #fff;
-    z-index: 1000;
+  .body-top {
+    width: 100%;
+    max-width: 100%;
+    margin-top: 24px;
+    row-gap: 24px;
   }
 
-    .posts-container {
-    margin-top: 40px;
-    flex-direction: column;
-    column-gap: 0;
+  .search-input {
+    height: 42px;
+    font-size: 14px;
+    padding: 0 14px;
+  }
+
+  .search_icon {
+    min-width: 48px;
+  }
+
+  .create-post {
+    width: 100%;
+    min-width: 0;
+    font-size: 18px;
+    padding: 10px;
+  }
+
+  .posts-container {
+    margin-top: 32px;
     row-gap: 24px;
   }
 
@@ -639,84 +652,66 @@ li{
     column-gap: 12px;
   }
 
+  .post-avatar {
+    width: 56px;
+    height: 56px;
+  }
+
   .post-user {
     font-size: 24px;
   }
 
-  .post-footer {
-    font-size: 20px;
+  .comment-user {
+    font-size: 18px;
   }
 
-.post-icon {
-  font-size: 20px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  display: inline-block;
-  margin-right: 5px;
-}
+  .post-img {
+    min-height: 220px;
+  }
 
-.post-icon:hover {
-  transform: scale(1.1);
-}
+  .post-footer {
+    font-size: 22px;
+    column-gap: 8px;
+  }
 
-
-   .log-main,
+  .log-main,
   .log-main2 {
-    padding-top: 150px;          
-    padding-bottom: 70px;        
+    padding-top: 140px;
   }
 
   .log-container {
     width: 100%;
     max-width: 360px;
-    min-width: 0;
   }
 
-  .reg-form input {
-    font-size: 16px;
-  }
-
-   .create-main {
-    margin-top: 100px;
-    padding: 0 16px;
+  .create-main {
+    margin-top: 80px;
   }
 
   .post-create {
     width: 100%;
-    max-width: 100%;
   }
 
   textarea {
-    max-height: 220px;
-    min-width: 280px;
-    max-width: 480px;
+    min-width: 100%;
+    max-width: 100%;
+    min-height: 220px;
+    max-height: 260px;
     font-size: 16px;
     padding: 14px;
   }
 
-  .add-img {
-    width: 100%;
-    font-size: 18px;
-  }
-
+  .add-img,
   .publish {
     width: 100%;
-    font-size: 20px;
-    padding: 14px 20px;
+    font-size: 18px;
+    padding: 10px 0;
   }
 
-    .profile-main {
+  .profile-main {
     flex-direction: column;
-    margin: 32px 12px;
+    margin: 32px 0;
     row-gap: 24px;
-  }
-
-    .user-info{
-    row-gap: 20px;
-  }
-
-  h1{
-    margin: 0;
   }
 
   .user-avatar {
@@ -724,6 +719,13 @@ li{
     height: 180px;
   }
 
+  h1 {
+    font-size: 32px;
+  }
+
+  .status {
+    font-size: 18px;
+  }
 
   .comm-container {
     flex-direction: column;
@@ -733,252 +735,74 @@ li{
   .comment {
     width: 100%;
     font-size: 16px;
-    padding: 10px 12px;
-    box-sizing: border-box;
   }
 
-    .receipt-container{
-    flex-direction: column;
-    row-gap: 20px;
-    column-gap: 0;
-  }
-
-  .receipt{
+  .receipt {
     align-items: flex-start;
   }
 
-  .receipt ul{
+  .receipt ul {
     font-size: 18px;
   }
 
-  .receipt-name{
+  .receipt-name {
     font-size: 24px;
-    text-align: left;
   }
 
-  .receipt-text{
+  .receipt-text {
     font-size: 16px;
-  }
-}
-
-/* ===== 960 px ===== */
-@media (min-width: 481px) and (max-width: 960px) {
-  body {
-    padding: 0 40px;
-  }
-
-    h1{
-    margin: 0;
-  }
-
-  header {
-    padding: auto 10px;
-  }
-
-  .header-link {
-    display: none;
-  }
-
-  main {
-    padding-top: 90px;
-    padding-bottom: 70px;
   }
 
   footer {
-    display: flex;
+    display: flex;           
     position: fixed;
     left: 0;
     right: 0;
     bottom: 0;
-    padding: 10px 40px;
+    padding: 6px 16px !important;
     background: #fff;
     z-index: 1000;
   }
 
-    .posts-container {
-    column-gap: 40px;
-    row-gap: 32px;
-    justify-content: center;
-  }
-
-  .post {
-    width: 100%;
-    max-width: 520px;
-  }
-
-  .post-img {
-    min-height: 320px;
-  }
-
-    .log-main,
-  .log-main2 {
-    padding-top: 160px;
-    padding-bottom: 80px;
-  }
-
-  .log-container {
-    width: 70%;
-    max-width: 500px;
-    min-width: 0;
-  }
-
- .create-main {
-    margin-top: 50px;
-    row-gap: 20px;
-  }
-
-  .post-create {
-    width: 100%;
-    max-width: 700px;
-  }
-
-  textarea {
-    min-height: 420px;
-    max-width: 720px;
-    min-width: 400px;
-  }
-
-  .add-img {
-    width: 60%;
-  }
-
-  .publish {
-    padding: 16px 40px;
-    font-size: 22px;
-  }
-
-   .profile-main {
-    flex-direction: column;
-    margin: 40px 16px;
-    row-gap: 28px;
-  }
-
-  .user-info{
-    row-gap: 20px;
-  }
-
-  .user-avatar {
-    width: 220px;
-    height: 220px;
-  }
-
-  .comm-history {
-    width: 100%;
-  }
-
-  .comm-container {
-    flex-direction: column;
-    gap: 20px;
-  }
-
-  .comment {
-    width: 100%;
-  }
-
-    .receipt-container{
-    flex-direction: column;
-    row-gap: 24px;
-    column-gap: 0;
-  }
-
-  .receipt{
-    align-items: flex-start;
-  }
-
-  .receipt ul{
-    font-size: 20px;
-  }
-
-  .receipt-name{
-    font-size: 26px;
-  }
-
-  .receipt-text{
-    font-size: 18px;
+  main {
+    padding-bottom: 70px;    
   }
 }
 
-/* ===== 960–1200 px ===== */
-@media (min-width: 961px) and (max-width: 1200px) {
-  body {
-    padding: 0 60px;
-  }
 
-    h1{
-    margin: 0;
+@media (min-width: 960px) and (max-width: 1200px) {
+  body {
+    padding: 0 40px;
   }
 
   header {
-    padding: 0 60px;
+    padding: 10px 40px;
   }
 
   .header-link {
-    display: inline-flex;
+    padding: 20px 40px;
+    font-size: 28px;
   }
 
-  main {
-    padding-top: 100px;
-    padding-bottom: 0;
-  }
-
-  footer {
-    display: none;
-  }
-
-   .posts-container {
-    column-gap: 60px;
-    row-gap: 36px;
+  .body-top {
+    width: 80%;
+    max-width: 720px;
   }
 
   .post {
-    width: 75%;
-    margin: auto;
-  }
-
-  .post-img {
-    min-height: 420px;
-  }
-
-    .log-container {
-    width: 40%;
-    max-width: 520px;
-  }
-
-   .create-main {
-    margin-top: 60px;
-    row-gap: 20px;
-  }
-
-  .post-create {
-    width: 80%;
-    max-width: 850px;
+    width: 70%;
   }
 
   textarea {
-    min-height: 500px;
-    min-width: 720px;
+    min-width: 100%;
+    max-width: 100%;
+    min-height: 380px;
+    max-height: 420px;
   }
 
-  .add-img {
-    width: 35%;
-  }
-
-  .publish {
-    padding: 18px 70px;
-  }
-
-    .profile-main {
-    flex-direction: column;
-    margin: 50px 40px;
-    row-gap: 32px;
-  }
-
-  .user-info{
-    row-gap: 20px;
-  }
-
-  .user-info{
-    row-gap: 20px;
+  .profile-main {
+    margin: 40px 20px;
+    column-gap: 80px;
   }
 
   .user-avatar {
@@ -986,34 +810,132 @@ li{
     height: 260px;
   }
 
-  .comm-container {
-    flex-direction: column;
-    gap: 24px;
-  }
-
   .comment {
-    width: 100%;
+    width: 48%;
   }
 
-  /* .receipt-img{
-      margin: auto;
-      width: 50%;
-  } */
+  footer {
+    display: none;
+  }
+}
 
-  .receipt{
-    align-items: flex-start;
+
+@media (min-width: 1200px) and (max-width: 1920px) {
+  body {
+    padding: 0 100px;
   }
 
-  .receipt ul{
-    font-size: 24px;
+  header {
+    padding: 10px 100px;
   }
 
-  .receipt-name{
+  .post {
+    width: 50%;
+  }
+
+  textarea {
+    min-width: 900px;
+    max-width: 900px;
+    min-height: 450px;
+    max-height: 450px;
+  }
+
+  .profile-main {
+    margin: 60px 80px;
+    column-gap: 160px;
+  }
+
+  footer {
+    display: none;
+  }
+}
+
+/* === 1920–2560 px: большие мониторы === */
+@media (min-width: 1920px) and (max-width: 2560px) {
+  body {
+    padding: 0 220px;
+  }
+
+  header {
+    padding: 10px 220px;
+  }
+
+  .logo {
+    width: 220px;
+  }
+
+  .header-link {
+    font-size: 36px;
+    padding: 20px 140px;
+  }
+
+  .body-top {
+    width: 70%;
+    max-width: 1000px;
+    margin-top: 60px;
+  }
+
+  .create-post {
+    font-size: 26px;
+    min-width: 320px;
+  }
+
+  .posts-container {
+    margin-top: 80px;
+    row-gap: 48px;
+  }
+
+  .post {
+    width: 45%;
+  }
+
+  .post-avatar {
+    width: 90px;
+    height: 90px;
+  }
+
+  .post-user {
+    font-size: 36px;
+  }
+
+  .post-footer {
+    font-size: 34px;
+  }
+
+  textarea {
+    min-width: 1200px;
+    max-width: 1200px;
+    min-height: 520px;
+    max-height: 520px;
+    font-size: 22px;
+  }
+
+  .profile-main {
+    margin: 80px 120px;
+    column-gap: 260px;
+  }
+
+  .user-avatar {
+    width: 380px;
+    height: 380px;
+  }
+
+  h1 {
+    font-size: 56px;
+  }
+
+  .receipt-name {
+    font-size: 40px;
+  }
+
+  .receipt-text {
     font-size: 30px;
   }
 
-  .receipt-text{
-    font-size: 20px;
+  footer {
+    display: none;
   }
 }
+
+
 

@@ -50,7 +50,7 @@
         {% for comment in user_obj.comment_set.all %}
           <div class="comment">
             <div class="comment-header">
-              <a href="{% url 'posts:detail' comment.post.id %}">{{ comment.post|truncatewords:3 }}</a>
+              <a href="{% url 'posts:detail' comment.post.id %}" class="post-link">{{ comment.post|truncatewords:3 }}</a>
               <small>{{ comment.created_at|date:'d.m.Y H:i' }}</small>
             </div>
             <p>{{ comment.text|truncatewords:20 }}</p>

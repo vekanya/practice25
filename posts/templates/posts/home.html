@@ -4,14 +4,12 @@
 {% block content %}
   <main>
     <div class="body-top">
-<div class="search">
-  <input type="text" class="search-input" 
-         placeholder="Поиск по рецептам и пользователям..." 
-         value="{% if query %}{{ query }}{% endif %}" />
-  <div class="search_icon">
-    <img src="{% static 'images/search_icon.svg' %}" alt="Поиск" class="search_icon" />
-  </div>
-</div>
+      <div class="search">
+        <input type="text" class="search-input" placeholder="Поиск по рецептам и пользователям..." value="{% if query %}{{ query }}{% endif %}" />
+        <div class="search_icon">
+          <img src="{% static 'images/search_icon.svg' %}" alt="Поиск" class="search_icon" />
+        </div>
+      </div>
 
       <a href="{% url 'posts:create' %}"><input type="button" class="create-post" value="+ Создать пост" /></a>
     </div>
@@ -52,14 +50,32 @@
           {% endif %}
 
           <div class="post-footer">
-            <div class="like post-icon-container">
-              <span class="post-icon react-btn" data-value="like">♡</span>
-              <span class="react-count like-count">{{ post.likes_count }}</span>
-            </div>
-            <div class="dislike post-icon-container">
-              <span class="post-icon react-btn" data-value="dislike">💔</span>
-              <span class="react-count dislike-count">{{ post.dislikes_count }}</span>
-            </div>
+<div class="like post-icon-container">
+  <span class="post-icon react-btn" data-value="like">
+    {% for reaction in post.reactions.all %}
+      {% if reaction.user == user and reaction.value == 1 %}
+        ♥
+      {% endif %}
+    {% empty %}
+      ♡
+    {% endfor %}
+  </span>
+  <span class="react-count like-count">{{ post.likes_count }}</span>
+</div>
+
+<div class="dislike post-icon-container">
+  <span class="post-icon react-btn" data-value="dislike">
+    {% for reaction in post.reactions.all %}
+      {% if reaction.user == user and reaction.value == -1 %}
+        🖤
+      {% endif %}
+    {% empty %}
+      💔
+    {% endfor %}
+  </span>
+  <span class="react-count dislike-count">{{ post.dislikes_count }}</span>
+</div>
+
             <div class="post-comment post-icon-container">
               <img src="{% static 'images/comment.svg' %}" alt="" class="post-icon comment-toggle" />
             </div>
