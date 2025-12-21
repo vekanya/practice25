@@ -6,6 +6,8 @@ from .forms import PostForm, CommentForm
 from .models import Post, PostImage, Reaction
 from django.db import models
 from django.db.models import Q 
+from django.http import JsonResponse
+from django.views.decorators.http import require_http_methods
 
 def home_view(request):
     query = request.GET.get('q', '').strip()
@@ -59,17 +61,26 @@ def post_detail_view(request, pk):
 
 
 @login_required
+@require_http_methods(["POST"])
 def add_comment_view(request, pk):
     post = get_object_or_404(Post, pk=pk)
-    if request.method == 'POST':
-        form = CommentForm(request.POST)
-        if form.is_valid():
-            comment = form.save(commit=False)
-            comment.post = post
-            comment.author = request.user
-            comment.save()
-            return redirect('posts:home')
-    return redirect('posts:home')
+    form = CommentForm(request.POST)
+    if form.is_valid():
+        comment = form.save(commit=False)
+        comment.post = post
+        comment.author = request.user
+        comment.save()
+        
+        comment_data = {
+            'id': comment.id,
+            'author_id': comment.author.id,
+            'author_username': comment.author.username,
+            'author_avatar': comment.author.avatar.url if comment.author.avatar else '/static/images/default_avatar.jpg',
+            'text': comment.text,
+        }
+        return JsonResponse({'success': True, 'comment': comment_data})
+    else:
+        return JsonResponse({'success': False, 'errors': form.errors}, status=400)
 
 @login_required
 @require_POST

@@ -15,7 +15,6 @@ class OnlineStatusMiddleware:
         response = self.get_response(request)
         
         if request.user.is_authenticated:
-            # Ставим оффлайн через 5 минут бездействия
             users.models.User.objects.filter(id=request.user.id).update(
                 is_online=False
             )
