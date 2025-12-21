@@ -50,31 +50,27 @@
           {% endif %}
 
           <div class="post-footer">
-<div class="like post-icon-container">
-  <span class="post-icon react-btn" data-value="like">
-    {% for reaction in post.reactions.all %}
-      {% if reaction.user == user and reaction.value == 1 %}
-        ♥
-      {% endif %}
-    {% empty %}
-      ♡
-    {% endfor %}
-  </span>
-  <span class="react-count like-count">{{ post.likes_count }}</span>
-</div>
+            <div class="like post-icon-container">
+              <span class="post-icon react-btn " data-value="like">
+                {% if post.user_reaction == 1 %}
+                  <img src="{% static 'images/like_active.svg' %}" alt="" class="react-icon"/>
+                {% else %}
+                  <img src="{% static 'images/like.svg' %}" alt="" class="react-icon"/>
+                {% endif %}
+              </span>
+              <span class="react-count like-count">{{ post.likes_count }}</span>
+            </div>
 
-<div class="dislike post-icon-container">
-  <span class="post-icon react-btn" data-value="dislike">
-    {% for reaction in post.reactions.all %}
-      {% if reaction.user == user and reaction.value == -1 %}
-        🖤
-      {% endif %}
-    {% empty %}
-      💔
-    {% endfor %}
-  </span>
-  <span class="react-count dislike-count">{{ post.dislikes_count }}</span>
-</div>
+            <div class="dislike post-icon-container">
+              <span class="post-icon react-btn" data-value="dislike">
+                {% if post.user_reaction == -1 %}
+                  <img src="{% static 'images/dislike_active.svg' %}" alt="" class="react-icon"/>
+                {% else %}
+                  <img src="{% static 'images/dislike.svg' %}" alt="" class="react-icon"/>
+                {% endif %}
+              </span>
+              <span class="react-count dislike-count">{{ post.dislikes_count }}</span>
+            </div>
 
             <div class="post-comment post-icon-container">
               <img src="{% static 'images/comment.svg' %}" alt="" class="post-icon comment-toggle" />

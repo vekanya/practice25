@@ -192,6 +192,18 @@ footer img{
     object-fit: cover;
 }
 
+.post-icon{
+  img{
+    height: 30px;
+  }
+}
+
+.post-icon-container.active{
+  border: #FF6B8B 2px solid;
+  border-radius: 10px;
+  padding: 5px;
+}
+
 .comments-block{
 display:none;
 }
@@ -589,10 +601,9 @@ li{
 .receipt-text{
     font-family: 'El Messiri';
     text-align:justify;
-    font-size: 28px;
+    font-size: 24px;
 }
 
-/* === 375–960 px: мобильные и небольшие планшеты === */
 @media (min-width: 375px) and (max-width: 960px) {
   body {
     padding: 0 16px;
@@ -603,7 +614,7 @@ li{
   }
 
   .header-link {
-    display: none; /* прячем большие ссылки в шапке */
+    display: none; 
   }
 
   .logo {
@@ -849,7 +860,6 @@ li{
   }
 }
 
-/* === 1920–2560 px: большие мониторы === */
 @media (min-width: 1920px) and (max-width: 2560px) {
   body {
     padding: 0 220px;

@@ -34,6 +34,8 @@ class Post(models.Model):
             return 0
         reaction = self.reactions.filter(user=user).first()
         return reaction.value if reaction else 0
+    
+    
 
 
 class PostImage(models.Model):
