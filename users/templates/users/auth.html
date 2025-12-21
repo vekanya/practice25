@@ -1,20 +1,21 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 {% load static %}
 
 {% block content %}
-<main class="log-main2">
-  <div class="log-container">
-    <h2>Войти</h2>
-    <form method="post" class="reg-form">
-      {% csrf_token %}
-      {{ form.non_field_errors }}
-      {{ form.username.errors }}
-      <input type="text" name="username" placeholder="Логин" class="form-input">
-      {{ form.password.errors }}
-      <input type="password" name="password" placeholder="Пароль" class="form-input">
-      <button type="submit" class="log-button">Войти</button>
-    </form>
-    <p class="log-link">Еще нет аккаунта? <a href="{% url 'users:register' %}">Регистрация</a></p>
-  </div>
-</main>
+  <main class="log-main2">
+    <div class="log-container">
+      <h2>Войти</h2>
+      <form method="post" class="reg-form" id="login-form" enctype="application/x-www-form-urlencoded">
+        {% csrf_token %}
+        <div id="login-errors"></div>
+        <input type="text" name="username" placeholder="Логин" class="form-input" required />
+        <input type="password" name="password" placeholder="Пароль" class="form-input" required />
+        <button type="submit" class="log-button" id="login-btn">Войти</button>
+      </form>
+
+      <p class="log-link">
+        Еще нет аккаунта? <a href="{% url 'users:register' %}">Регистрация</a>
+      </p>
+    </div>
+  </main>
 {% endblock %}

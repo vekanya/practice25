@@ -27,20 +27,17 @@
         <span class="posts-count">Посты: {{ user_obj.posts.count }}</span>
       </div>
 
-      {% if user_obj == user %}
+      <form method="post" enctype="multipart/form-data" class="reg-form">
+        {% csrf_token %}
+        {{ avatar_form.avatar.errors }}
+        <label for="id_avatar" class="change-button">Изменить аватар</label>
+        <input type="file" name="avatar" id="id_avatar" class="form-input add-ava"  />
+        <button type="submit" class="log-button">Сохранить</button>
+      </form>
+      <a href="{% url 'users:download_data' %}" class="download-btn">Скачать мои данные</a>
 
-        <form method="post" enctype="multipart/form-data" class="reg-form">
-          {% csrf_token %}
-          {{ avatar_form.avatar.errors }}
-          <label for="id_avatar" class="change-button">Изменить аватар</label>
-          <input type="file" name="avatar" id="id_avatar" class="form-input add-ava" />
-          <button type="submit" class="log-button">Сохранить</button>
-        </form>
-        {% if user_obj == user %}
-
-          <a href="{% url 'users:download_data' %}" class="download-btn">Скачать мои данные</a>
-        {% endif %}
-        <a href="{% url 'users:logout' %}">Выйти</a>
+      {% if is_admin %}
+        <a href="{% url 'admin:index' %}" class="admin-link">Админ панель</a>
       {% endif %}
     </div>
 

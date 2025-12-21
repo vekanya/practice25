@@ -51,11 +51,11 @@
 
           <div class="post-footer">
             <div class="like post-icon-container">
-              <span class="post-icon react-btn " data-value="like">
+              <span class="post-icon react-btn" data-value="like">
                 {% if post.user_reaction == 1 %}
-                  <img src="{% static 'images/like_active.svg' %}" alt="" class="react-icon"/>
+                  <img src="{% static 'images/like_active.svg' %}" alt="" class="react-icon" />
                 {% else %}
-                  <img src="{% static 'images/like.svg' %}" alt="" class="react-icon"/>
+                  <img src="{% static 'images/like.svg' %}" alt="" class="react-icon" />
                 {% endif %}
               </span>
               <span class="react-count like-count">{{ post.likes_count }}</span>
@@ -64,9 +64,9 @@
             <div class="dislike post-icon-container">
               <span class="post-icon react-btn" data-value="dislike">
                 {% if post.user_reaction == -1 %}
-                  <img src="{% static 'images/dislike_active.svg' %}" alt="" class="react-icon"/>
+                  <img src="{% static 'images/dislike_active.svg' %}" alt="" class="react-icon" />
                 {% else %}
-                  <img src="{% static 'images/dislike.svg' %}" alt="" class="react-icon"/>
+                  <img src="{% static 'images/dislike.svg' %}" alt="" class="react-icon" />
                 {% endif %}
               </span>
               <span class="react-count dislike-count">{{ post.dislikes_count }}</span>
@@ -94,13 +94,10 @@
               <p class="history">Пока нет комментариев.</p>
             {% endfor %}
 
-            {% if user.is_authenticated %}
-              <form class="comment-form" method="POST" action="{% url 'posts:comment' post.id %}">
-                {% csrf_token %}
-                <input type="text" name="text" class="form-input" placeholder="Напишите комментарий" />
-                <button type="submit" class="log-button">Добавить комментарий</button>
-              </form>
-            {% endif %}
+            <form class="comment-form" method="POST" action="{% url 'posts:comment' post.id %}">
+              <input type="text" name="text" class="form-input" placeholder="Напишите комментарий" />
+              <button type="submit" class="log-button">Добавить комментарий</button>
+            </form>
           </div>
         </div>
       {% endfor %}

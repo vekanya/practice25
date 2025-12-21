@@ -1,22 +1,27 @@
 from django.utils import timezone
-import users.models
+from rest_framework_simplejwt.tokens import UntypedToken
+from django.shortcuts import get_object_or_404
+from .models import User
 
 class OnlineStatusMiddleware:
     def __init__(self, get_response):
         self.get_response = get_response
 
     def __call__(self, request):
-        if request.user.is_authenticated:
-            users.models.User.objects.filter(id=request.user.id).update(
-                is_online=True,
-                last_seen=timezone.now()
-            )
+
+        auth_header = request.META.get('HTTP_AUTHORIZATION', '')
+        if auth_header.startswith('Bearer '):
+            try:
+                token = auth_header[7:]
+                token_obj = UntypedToken(token)
+                user_id = token_obj['user_id']
+                user = get_object_or_404(User, id=user_id)
+                user.is_online = True
+                user.update_last_seen()
+                user.save(update_fields=['is_online', 'last_seen'])
+                request.user = user  # Для шаблонов
+            except:
+                pass
         
         response = self.get_response(request)
-        
-        if request.user.is_authenticated:
-            users.models.User.objects.filter(id=request.user.id).update(
-                is_online=False
-            )
-        
         return response
